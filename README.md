@@ -15,7 +15,7 @@ github.com/undefined/https://github.com/kspoth/README-Generator
 ## Installation
 N/A
 ## Usage
-Here is a instructional video of how the application works: https://drive.google.com/file/d/1R2E1TZatyIq6WyH-coYWpz5ue0Hlq-44/view?usp=sharing
+Here is an instructional video of how the application works: https://drive.google.com/file/d/1R2E1TZatyIq6WyH-coYWpz5ue0Hlq-44/view?usp=sharing
 ## Credits
 N/A
 ## License
