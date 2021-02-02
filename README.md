@@ -27,4 +27,4 @@ N/A
 N/A
 
 ## Questions
-If you have any questions on the functionality, or in general please visit http://github.com/https://github.com/kspoth or reach out to kspoth08@su.edu
+If you have any questions on the functionality, or in general please visit https://github.com/kspoth or reach out to kspoth08@su.edu
