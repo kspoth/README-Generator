@@ -82,5 +82,45 @@ async function init() {
         name: "questions",
       },
     ])
-}
+    .then((response) => {
+   
+        userName = response.username;
+        appTitle = response.title;
+        appDescription = response.description;
+        tableOfContents = response.tableOfContents;
+        install = response.install;
+        license = response.license;
+        usage = response.usage;
+        contributing = response.contributing;
+        tests = response.tests;
+        questions = response.questions;
+      });
+  
+    await axios
+      .get(`https://api.github.com/users/${userName}`)
+      .then((response) => {
+        const generatedMarkdown = 
+         `# ${appTitle}
+  # ${response.data.name}
+  ${appDescription}
+  ![Tamara South picture](${response.data.avatar_url})
+  ## **Table of Contents** 
+  ${tableOfContents}
+  ## **Install Guide** 
+  ${install}
+  ## **Usage** 
+  ${usage}
+  ## **License** 
+  ${license}
+  ## **Contributors** 
+  ${contributing}
+  ## **Tests** 
+  ${tests}
+  ## **Questions**
+  ${questions}
+  `;
+        writeToFile("README.md", generatedMarkdown);
+      });
+  }
+
   init();
