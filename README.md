@@ -1,7 +1,7 @@
-# ReadMe Generator
+# README Generator
   
 ## Description
-using Node.js command line this  application to create professional readme documents
+Using Node.js command line this application allows a user to create professional readme documents
 ## Github Repo
 github.com/undefined/https://github.com/kspoth/README-Generator
 ## Table of Contents
@@ -13,9 +13,9 @@ github.com/undefined/https://github.com/kspoth/README-Generator
 * [Tests](tests)
 * [Questions](#questions)
 ## Installation
-Run npm to install the correct node packages
+N/A
 ## Usage
-Here is a video of the appication:
+Here is a instructional video of how the application works: https://drive.google.com/file/d/1R2E1TZatyIq6WyH-coYWpz5ue0Hlq-44/view?usp=sharing
 ## Credits
 N/A
 ## License
@@ -27,4 +27,4 @@ N/A
 N/A
 
 ## Questions
-If you have any questions on the functionality, or in general please visit http://github.com/kspoth or reach out to kspoth08@su.edu
+If you have any questions on the functionality, or in general please visit http://github.com/https://github.com/kspoth or reach out to kspoth08@su.edu
