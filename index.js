@@ -1,126 +1,115 @@
-const fs = require("fs");
 const inquirer = require("inquirer");
-const axios = require("axios");
-
-const userQuestions = [
-  "What is your GitHub username?",
-  "Title:",
-  "Description:",
-  "Table of Contents:",
-  "Installation:",
-  "Usage:",
-  "Licenses:",
-  "Contributing:",
-  "Tests:",
-  "Questions:",
-];
+const fs = require("fs");
+const path = require("path");
+const generateMarkdown = require("./generateMarkdown");
 
 
-function writeToFile(fileName, data) {
-  fs.writeFile(fileName, data, (err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log("Success README.md Generated");
+
+const questions = [
+    {
+        type: "input",
+        name: "name",
+        message: "What is the name of the application for project?"
+    },
+    {
+        type: "input",
+        name: "github",
+        message: "What is the name of the github repo or the project?"
+    },
+    {
+        type: "input",
+        name: "description",
+        message: "Provide a brief description of your project. The why, what and how"
+    },
+    {
+        type: "input",
+        name: "installation",
+        message: "What steps are required to install your project?"
+    },
+    {
+        type: "input",
+        name: "usage",
+        message: "Provide instructions and screenshots on how to use your application."
+    },
+    {
+        type: "input",
+        name: "credits",
+        message: "Did anyone collaborate on this project? Credit them here."
+    },
+    {
+        type: "list",
+        name: "license",
+        message: "Are there any appropriate licenses that need listing?",
+        choices: [
+            "afl-3.0",
+            "apache-2.0",
+            "artistic-2.0",
+            "bsl-1.0",
+            "bsd-2-clause",
+            "bsd-3-clause",
+            "bsd-3-clause-clear",
+            "cc",
+            "cc0-1.0",
+            "cc-by-4.0",
+            "cc-by-sa-4.0",
+            "wtfpl",
+            "ecl-2.0",
+            "epl-1.0",
+            "epl-2.0",
+            "eupl-1.1",
+            "agpl-3.0",
+            "gpl",
+            "gpl-2.0",
+            "gpl-3.0",
+            "lgpl",
+            "lgpl-2.1",
+            "lgpl-3.0",
+            "isc",
+            "lppl-1.3c",
+            "ms-pl",
+            "mit",
+            "mpl-2.0",
+            "osl-3.0",
+            "postgresql",
+            "ofl-1.1",
+            "ncsa",
+            "unlicense",
+            "zlib",
+            "N/A"
+        ]
+    },
+    {
+        type: "input",
+        name: "contributing",
+        message: "Where there any other contributors you would like to include?"
+    },
+    {
+        type: "input",
+        name: "tests",
+        message: "What tests are available for the project?"
+    },
+    {
+        type: "input",
+        name: "questions1",
+        message: "What is your github username?"
+    },
+    {
+        type: "input",
+        name: "questions2",
+        message: "What is your email address?"
     }
-  });
+]
+
+function generateReadme(fileName, data){
+    return fs.writeFileSync(path.join(process.cwd(), fileName), data);
 }
 
-async function init() {
+function init() {
+    inquirer.prompt(questions)
+    .then((inquirerResponses) => {
+        console.log("Your readme is being generated");
+        generateReadme("readme.md", generateMarkdown({...inquirerResponses}));
+    })
+}
 
-  await inquirer
-    .prompt([
-      {
-        type: "input",
-        message: userQuestions[0],
-        name: "username",
-      },
-      {
-        type: "input",
-        message: userQuestions[1],
-        name: "title",
-      },
-      {
-        type: "input",
-        message: userQuestions[2],
-        name: "description",
-      },
-      {
-        type: "input",
-        message: userQuestions[3],
-        name: "tableOfContents",
-      },
-      {
-        type: "input",
-        message: userQuestions[4],
-        name: "install",
-      },
-      {
-        type: "input",
-        message: userQuestions[5],
-        name: "usage",
-      },
-      {
-        type: "checkbox",
-        message: userQuestions[6],
-        name: "license",
-        choices: ["MIT" , "GPLv3" , "AGPL"],
-      },
-      {
-        type: "input",
-        message: userQuestions[7],
-        name: "contributing",
-      },
-      {
-        type: "input",
-        message: userQuestions[8],
-        name: "tests",
-      },
-      {
-        type: "input",
-        message: userQuestions[9],
-        name: "questions",
-      },
-    ])
-    .then((response) => {
-   
-        userName = response.username;
-        appTitle = response.title;
-        appDescription = response.description;
-        tableOfContents = response.tableOfContents;
-        install = response.install;
-        license = response.license;
-        usage = response.usage;
-        contributing = response.contributing;
-        tests = response.tests;
-        questions = response.questions;
-      });
-  
-    await axios
-      .get(`https://api.github.com/users/${userName}`)
-      .then((response) => {
-        const generatedMarkdown = 
-         `# ${appTitle}
-  # ${response.data.name}
-  ${appDescription}
-  ![Tamara South picture](${response.data.avatar_url})
-  ## **Table of Contents** 
-  ${tableOfContents}
-  ## **Install Guide** 
-  ${install}
-  ## **Usage** 
-  ${usage}
-  ## **License** 
-  ${license}
-  ## **Contributors** 
-  ${contributing}
-  ## **Tests** 
-  ${tests}
-  ## **Questions**
-  ${questions}
-  `;
-        writeToFile("README.md", generatedMarkdown);
-      });
-  }
-
-  init();
+init();
